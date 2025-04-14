@@ -3,13 +3,10 @@ CXX = c++
 CXXFLAGS = -std=c++17 -Wall -Wextra -Werror -g3
 INCLUDES = -I ./inc
 
-SRCS = $(wildcard src/*.cpp)
- 
-OBJDIR = objs
-SRCDIR = src
+SRCS = src/BitcoinExchange.cpp src/main.cpp
 
-SRC = $(wildcard $(SRCDIR)/*.cpp)
-OBJS = $(SRC:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
+OBJDIR = objs
+OBJS = $(SRCS:src/%.cpp=$(OBJDIR)/%.o)
 
 all: $(NAME)
 
@@ -19,7 +16,7 @@ $(NAME): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJS)
 	echo $(GREEN)"Building $(NAME)"$(DEFAULT);
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.cpp
+$(OBJDIR)/%.o: src/%.cpp
 	@mkdir -p $(OBJDIR)
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
 
